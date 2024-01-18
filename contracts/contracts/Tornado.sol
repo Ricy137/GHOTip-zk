@@ -1,8 +1,10 @@
 // SPDX-License-Identifier: NONE
-pragma solidity 0.8.17;
+pragma solidity 0.8.20;
 
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "./MiMCSponge.sol";
 import "./ReentrancyGuard.sol";
+import "./IGhoToken.sol";
 
 interface IVerifier {
     function verifyProof(
@@ -13,13 +15,13 @@ interface IVerifier {
     ) external;
 }
 
-contract Tornado is ReentrancyGuard {
+contract Tornado is ReentrancyGuard, Ownable {
     address verifier;
     Hasher hasher;
+    IGhoToken ghoToken;
 
     uint8 public treeLevel = 10;
-    //TODO: To be rigorous, every deposit should only be 0.5/1/5/10 GHO, but for LFGHO, the control is in frontend.
-    // uint256 public denomination = 0.1 ether;
+    uint256 public denomination = 1 ether;
 
     uint256 public nextLeafIdx = 0;
     mapping(uint8 => uint256) lastLevelHash;
@@ -46,16 +48,20 @@ contract Tornado is ReentrancyGuard {
     );
     event VerifyProof(uint256 nullifierHash, bool verifyOK);
 
-    constructor(address _hasher, address _verifier) {
+    constructor(
+        address _hasher,
+        address _verifier,
+        address _ghoToken
+    ) Ownable(msg.sender) {
         hasher = Hasher(_hasher);
+        ghoToken = IGhoToken(_ghoToken);
         verifier = _verifier;
     }
 
     function deposit(uint256 _commitment) external payable nonReentrant {
-        //TODO: Currently it's frontend that controls the deposit amount, move the logic in contract
-        // require(msg.value == denomination, "incorrect-amount");
         require(!commitments[_commitment], "existing-commitment");
         require(nextLeafIdx < 2 ** treeLevel, "tree-full");
+        ghoToken.transferFrom(msg.sender, address(this), denomination);
 
         uint256 newRoot;
         uint256[10] memory hashPairings;
@@ -98,7 +104,7 @@ contract Tornado is ReentrancyGuard {
         emit Deposit(newRoot, hashPairings, hashDirections);
     }
 
-    function withdraw(
+    function getVerifyResult(
         uint[2] memory a,
         uint[2][2] memory b,
         uint[2] memory c,
@@ -122,5 +128,10 @@ contract Tornado is ReentrancyGuard {
         nullifierHashes[_nullifierHash] = true;
 
         emit VerifyProof(_nullifierHash, verifyOK);
+    }
+
+    function withdraw() external nonReentrant onlyOwner {
+        uint256 amount = ghoToken.balanceOf(address(this));
+        payable(msg.sender).transfer(amount);
     }
 }
