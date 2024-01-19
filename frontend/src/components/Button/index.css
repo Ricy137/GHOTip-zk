@@ -1,0 +1,46 @@
+/* contained button */
+.fui-button--contained {
+  @apply bg-[rgba(255,255,255,0.12);] text-[#ffffff];
+}
+
+.fui-button--contained:hover {
+  @apply bg-[#ffffff] text-[#000000];
+}
+
+/* outlined button */
+
+.fui-button--outlined {
+  @apply bg-transparent text-[#000000];
+}
+
+.fui-button--outlined:hover {
+  @apply bg-[#9AE9E9] text-[#000000];
+}
+
+/* text button */
+.fui-button--text {
+  @apply !border-none bg-transparent text-[#111111];
+}
+
+.fui-button--text.fui-button--primary:hover,
+.fui-button--text.fui-button--primary:focus-visible {
+  @apply bg-[#F7F8FA] text-[#303549];
+}
+
+/*color*/
+.fui-button--contained.fui-button--white {
+  @apply bg-[#ffffff] text-[#000000];
+}
+
+.fui-button--contained.fui-button--amber {
+  @apply bg-[#fde694] text-[#000];
+}
+
+.fui-button--contained.fui-button--white:hover {
+  @apply bg-[rgba(255,255,255,0.12);] text-[#ffffff];
+}
+
+.fui-button--contained.fui-button--amber:hover {
+  @apply bg-[rgba(255,255,255,0.12);] text-[#ffffff];
+}
+

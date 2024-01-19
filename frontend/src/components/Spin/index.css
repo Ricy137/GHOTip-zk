@@ -1,0 +1,13 @@
+.spin {
+  animation: spinAnimation 1.35s linear infinite;
+  transform-origin: center center;
+}
+
+@keyframes spinAnimation {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}

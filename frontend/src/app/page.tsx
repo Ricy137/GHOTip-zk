@@ -1,4 +1,5 @@
 import GhoTipBoard from './GhoTipBoard';
+import GHOTab from './GHOTab';
 
 export default function Home() {
   return (
@@ -7,7 +8,9 @@ export default function Home() {
         <div className="px-[13px]">
           <GhoTipBoard />
         </div>
-        <div className="px-[13px]">456</div>
+        <div className="px-[13px] w-full">
+          <GHOTab />
+        </div>
       </div>
     </main>
   );
