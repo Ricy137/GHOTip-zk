@@ -19,15 +19,15 @@ module.exports = {
       },
     ],
   },
-  // networks: {
-  //   sepolia: {
-  //     url: process.env.NODE_URL,
-  //     accounts: [process.env.PRIVATE_KEY],
-  //   },
-  // },
-  // etherscan: {
-  //   apiKey: {
-  //     sepolia: process.env.API_KEY,
-  //   },
-  // },
+  networks: {
+    sepolia: {
+      url: process.env.NODE_URL,
+      accounts: [process.env.PRIVATE_KEY],
+    },
+  },
+  etherscan: {
+    apiKey: {
+      sepolia: process.env.API_KEY,
+    },
+  },
 };

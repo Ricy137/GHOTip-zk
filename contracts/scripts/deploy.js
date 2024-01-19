@@ -7,6 +7,7 @@
 const hre = require('hardhat');
 
 async function main() {
+  const GHOAddr = '0xc4bF5CbDaBE595361438F8c6a187bDc330539c60';
   // deploy hasher
   const Hasher = await hre.ethers.getContractFactory('Hasher');
   const hasher = await Hasher.deploy();
@@ -23,7 +24,7 @@ async function main() {
 
   // deploy tornado
   const Tornado = await hre.ethers.getContractFactory('Tornado');
-  const tornado = await Tornado.deploy(hasherAddress, verifierAddress);
+  const tornado = await Tornado.deploy(hasherAddress, verifierAddress, GHOAddr);
   await tornado.deployed();
   console.log('tornado:', tornado.address);
 }

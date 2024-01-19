@@ -18,6 +18,10 @@
   @apply bg-[#BCB4C8];
 }
 
+.cui-tab-body--line {
+  @apply py-[12px];
+}
+
 .cui-tab-navitem--card-active::before {
   background: radial-gradient(
     circle at 0 0,

@@ -1,3 +1,34 @@
+/** common **/
+.fui-button {
+  @apply relative inline-flex justify-center items-center whitespace-nowrap outline-none transition-colors font-semibold cursor-pointer;
+}
+
+button.fui-button {
+  @apply min-h-[24px];
+  flex: 0 0 auto;
+}
+
+button.absolute {
+  position: absolute;
+}
+
+.fui-button--fullWidth {
+  @apply flex w-full;
+}
+
+/* size & shape */
+/* props: width, height, radius, font size, line height*/
+.fui-button--small {
+  @apply px-[14px] h-[32px] text-[12px] leading-[30px] rounded-[4px];
+}
+
+.fui-button--medium {
+  @apply px-[18px]  h-[36px] text-[14px] leading-[34px] rounded-[6px];
+}
+
+.fui-button--large {
+  @apply px-[22px]  h-[75px] text-[20px] leading-normal rounded-[15px];
+}
 /* contained button */
 .fui-button--contained {
   @apply bg-[rgba(255,255,255,0.12);] text-[#ffffff];
@@ -32,15 +63,18 @@
   @apply bg-[#ffffff] text-[#000000];
 }
 
-.fui-button--contained.fui-button--amber {
-  @apply bg-[#fde694] text-[#000];
-}
-
 .fui-button--contained.fui-button--white:hover {
   @apply bg-[rgba(255,255,255,0.12);] text-[#ffffff];
+}
+
+.fui-button--contained.fui-button--amber {
+  @apply bg-[#fde694] text-[#000];
 }
 
 .fui-button--contained.fui-button--amber:hover {
   @apply bg-[rgba(255,255,255,0.12);] text-[#ffffff];
 }
 
+.fui-button--contained.fui-button--purple {
+  @apply bg-[#614E7E] text-[#ffffff];
+}

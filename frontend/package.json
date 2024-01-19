@@ -10,11 +10,14 @@
   },
   "dependencies": {
     "clsx": "^2.1.0",
+    "connectkit": "^1.6.0",
     "jotai": "^2.6.2",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
-    "sharp": "^0.33.2"
+    "sharp": "^0.33.2",
+    "viem": "1.x",
+    "wagmi": "1.x"
   },
   "devDependencies": {
     "@types/node": "^20",

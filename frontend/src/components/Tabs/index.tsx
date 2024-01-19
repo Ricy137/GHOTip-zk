@@ -66,7 +66,7 @@ const Tabs: React.FC<TabsProps> = ({
           />
         ))}
       </div>
-      <div className={cx('py-[12px] w-full', bodyClassName)}>
+      <div className={cx('w-full', `cui-tab-body--${type}`, bodyClassName)}>
         {items.map((item) => (
           <TabContent
             activeId={activeId}

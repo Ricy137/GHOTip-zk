@@ -1,18 +1,23 @@
-import { PropsWithChildren, ComponentProps } from 'react'
-import cx from 'clsx'
+import { PropsWithChildren, ComponentProps } from 'react';
+import cx from 'clsx';
 
 export const WrapperCard: React.FC<
-  PropsWithChildren & ComponentProps<'div'>
-> = ({ children, className, ...props }) => (
+  PropsWithChildren &
+    ComponentProps<'div'> & {
+      color: 'purple' | 'green';
+    }
+> = ({ children, className, color, ...props }) => (
   <div
     className={cx(
-      'p-[40px] rounded-[24px] border-dashed border-[1px] border-[#DCDEE0] bg-white',
+      'py-[14px] px-[18px] rounded-b-[15px] rounded-tr-[15px]',
+      color === 'purple' && 'bg-[#BCB4C8]',
+      color === 'green' && 'bg-[#A4BC91]',
       className
     )}
     {...props}
   >
     {children}
   </div>
-)
+);
 
 // export default Card;

@@ -10,7 +10,7 @@ const GhoTipBoard: React.FC = () => {
           src={GHO}
           width={22}
           height={30}
-          alt="gho logo"
+          alt="GHOTip logo"
         />
         <div className="text-[24px] font-semibold">GHO Tip</div>
       </div>
