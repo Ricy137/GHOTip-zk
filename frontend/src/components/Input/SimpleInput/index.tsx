@@ -31,7 +31,7 @@ const SimpleInput = forwardRef<HTMLInputElement, Props>(
       <div className={cx(style.balanceInput_wrapper, className)}>
         <input
           ref={ref}
-          //   step="0.000000000000000001"
+          step="0.000000000000000001"
           className={cx(style.balanceInput, inputClassName)}
           autoComplete="off"
           defaultValue={defaultValue}

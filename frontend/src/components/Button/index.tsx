@@ -4,7 +4,7 @@ import cx from 'clsx';
 import './index.css';
 
 export interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  color?: 'primary' | 'white' | 'amber' | 'purple';
+  color?: 'primary' | 'white' | 'amber' | 'purple' | 'green';
   variant?: 'contained' | 'outlined' | 'text';
   fullWidth?: boolean;
   loading?: boolean;

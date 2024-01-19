@@ -1,17 +1,50 @@
+'use client';
+import { useCallback } from 'react';
 import Image from 'next/image';
+import { useForm } from 'react-hook-form';
 import GHOLogo from '@/assets/icons/GHO.svg';
 import { WrapperCard } from '@/components/Card';
 import SimpleInput from '@/components/Input/SimpleInput';
 import Button from '@/components/Button';
+import AuthConBtn from '@/modules/AuthConBtn';
+import { useDepositTip } from '@/services/depositTip';
+import useInTransaction from '@/hooks/useIntransaction';
+
+interface TipForm {
+  amount: number;
+}
 
 const Tip: React.FC = () => {
+  const depositTip = useDepositTip();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<TipForm>();
+
+  const onSubmit = useCallback(async (data: TipForm) => {
+    try {
+      const txHash = depositTip(data.amount);
+      console.log('txHash');
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  const { loading, handleExecAction } = useInTransaction(onSubmit);
+
   return (
-    <div className="flex flex-col w-full">
+    <form
+      className="flex flex-col w-full"
+      onSubmit={handleSubmit(handleExecAction)}
+    >
       <WrapperCard
         color="purple"
         className="flex flex-row justify-between items-center min-h-[152px]"
       >
         <SimpleInput
+          {...register('amount', { required: true })}
           type="number"
           // defaultValue={0}
           placeholder="0"
@@ -24,10 +57,14 @@ const Tip: React.FC = () => {
           <span className="text-[20px] font-medium">GHO</span>
         </div>
       </WrapperCard>
-      <Button className="mt-[14px]" fullWidth color="purple" size="large">
-        Tip
-      </Button>
-    </div>
+      <div className="mt-[14px] w-full">
+        <AuthConBtn color="purple">
+          <Button fullWidth color="purple" size="large">
+            Tip
+          </Button>
+        </AuthConBtn>
+      </div>
+    </form>
   );
 };
 
