@@ -21,7 +21,7 @@ contract Tornado is ReentrancyGuard, Ownable {
     IGhoToken ghoToken;
 
     uint8 public treeLevel = 10;
-    uint256 public denomination = 1 ether;
+    uint256 public denomination = 0.01 ether;
 
     uint256 public nextLeafIdx = 0;
     mapping(uint8 => uint256) lastLevelHash;

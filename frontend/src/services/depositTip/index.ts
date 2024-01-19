@@ -19,7 +19,7 @@ const getApprove = async (amount: number) => {
   return tx.hash;
 };
 
-const deposit = async (_commitment: string) => {
+const deposit = async (_commitment: BigInt) => {
   const result = await writeContract({
     abi: GhoTipAbi,
     address: GHOTIP_ADDR,
@@ -50,7 +50,7 @@ const generateProofElements = async () => {
     const commitment = r[1];
     const nullifierHash = r[2];
     return {
-      commitment: commitment.toString(),
+      commitment: commitment,
       nullifierHash: nullifierHash.toString(),
       secret,
       nullifier,
@@ -70,7 +70,12 @@ export const useDepositTip = () => {
       const approveTx = await getApprove(amount);
 
       const txHash = await deposit(newProofElements.commitment);
-      setProofElements({ ...newProofElements, txHash });
+      setProofElements((pre) => {
+        if (!pre) {
+          return [{ ...newProofElements, txHash }];
+        }
+        return [{ ...newProofElements, txHash }, ...pre];
+      });
       return txHash;
     } catch (err) {
       throw err;

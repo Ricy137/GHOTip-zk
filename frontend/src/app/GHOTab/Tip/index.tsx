@@ -6,9 +6,11 @@ import GHOLogo from '@/assets/icons/GHO.svg';
 import { WrapperCard } from '@/components/Card';
 import SimpleInput from '@/components/Input/SimpleInput';
 import Button from '@/components/Button';
+import { useModal } from '@/components/Modal';
 import AuthConBtn from '@/modules/AuthConBtn';
 import { useDepositTip } from '@/services/depositTip';
 import useInTransaction from '@/hooks/useIntransaction';
+import ProofModal from './proofModal';
 
 interface TipForm {
   amount: number;
@@ -16,6 +18,10 @@ interface TipForm {
 
 const Tip: React.FC = () => {
   const depositTip = useDepositTip();
+  const { showModal } = useModal({
+    title: 'Tip Proof List',
+    content: <ProofModal />,
+  });
   const {
     register,
     handleSubmit,
@@ -26,7 +32,8 @@ const Tip: React.FC = () => {
   const onSubmit = useCallback(async (data: TipForm) => {
     try {
       const txHash = depositTip(data.amount);
-      console.log('txHash');
+      // console.log('txHash', txHash);
+      showModal();
     } catch (err) {
       console.log(err);
     }

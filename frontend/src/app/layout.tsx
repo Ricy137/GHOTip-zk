@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { ToastRender } from '@/components/Toast';
+import ModalRender from '@/components/Modal';
 import Providers from '@/modules/Providers';
 import './globals.css';
 
@@ -19,7 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <ToastRender />
+          <ModalRender />
+          {children}
+        </Providers>
       </body>
     </html>
   );
