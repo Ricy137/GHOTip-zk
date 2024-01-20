@@ -26,7 +26,7 @@ deploy.js is under scripts folder to help you deploy the contracts.
 |||
 |--|--|
 |framwork|Nextjs|
-|zk helper(for proof generation)|snarkjs and files generated from circom files during ceremonies, compiling processes e.t.|
+|zk helper(for proof generation)|snarkjs and files generated based on our circom files with snarkjs(you can find these files from circuit folder)|
 |coonecting wallet|ConnectKit|
 |interaction with blockchain| wagmi|
 
