@@ -24,7 +24,10 @@ const getApprove = async (amount: 0.1 | 0.5) => {
       ethers.utils.parseUnits(amount.toString(), 18),
     ],
   });
-  let transactionReceipt = await waitForTransaction({ hash: tx.hash });
+  let transactionReceipt = await waitForTransaction({
+    hash: tx.hash,
+    confirmations: 2,
+  });
 
   return transactionReceipt;
 };
