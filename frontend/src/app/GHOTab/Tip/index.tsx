@@ -31,7 +31,7 @@ const Tip: React.FC = () => {
 
   const onSubmit = useCallback(async (data: TipForm) => {
     try {
-      const txHash = depositTip(data.amount);
+      const txHash = await depositTip(data.amount);
       // console.log('txHash', txHash);
       showModal();
     } catch (err) {

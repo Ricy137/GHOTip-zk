@@ -30,13 +30,15 @@ export interface Modal {
 const isOpenAtom = atom(false);
 const modalAtom = atom<Modal | null>(null);
 
+//TODO: use vallian JS for show&hide modal
 export const useModal = (param?: Omit<Modal, 'id'>) => {
   const setIsOpen = useSetAtom(isOpenAtom);
   const setModal = useSetAtom(modalAtom);
 
-  const showModal = useCallback(() => {
-    if (!param) return;
-    setModal({ ...param, id: uniqueId() });
+  const showModal = useCallback((modalParam?: Omit<Modal, 'id'>) => {
+    let showModalParam = !!modalParam ? modalParam : param;
+    if (!showModalParam) return;
+    setModal({ ...showModalParam, id: uniqueId() });
     setIsOpen(true);
   }, []);
 

@@ -3,7 +3,9 @@ import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import SimpleTextArea from '@/components/TextArea/SimpleTextArea';
 import Button from '@/components/Button';
+import { useModal } from '@/components/Modal';
 import AuthConBtn from '@/modules/AuthConBtn';
+import NotificationModal from '@/modules/NotificationModal';
 import useInTransaction from '@/hooks/useIntransaction';
 import { useVerifyProof } from '@/services/verifyProof';
 
@@ -13,6 +15,7 @@ interface VerifyForm {
 
 const Verify: React.FC = () => {
   const verifyProof = useVerifyProof();
+  const { showModal } = useModal();
   const {
     register,
     handleSubmit,
@@ -22,9 +25,14 @@ const Verify: React.FC = () => {
 
   const onSubmit = useCallback(async (data: VerifyForm) => {
     try {
-      verifyProof(data.proofElementStr);
+      await verifyProof(data.proofElementStr);
+      showModal({
+        content: <NotificationModal content="Proofs verified successfully!" />,
+      });
     } catch (err) {
-      console.log(err);
+      showModal({
+        content: <NotificationModal content="Failed to verify proof." />,
+      });
     }
   }, []);
 
@@ -42,7 +50,7 @@ const Verify: React.FC = () => {
       />
       <div className="mt-[14px] w-full">
         <AuthConBtn color="purple">
-          <Button fullWidth size="large" color="purple">
+          <Button loading={loading} fullWidth size="large" color="purple">
             Verify Proof
           </Button>
         </AuthConBtn>
