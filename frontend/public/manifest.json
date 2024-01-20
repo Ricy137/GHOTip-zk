@@ -1,0 +1,23 @@
+{
+    "name": "GHOTip",
+    "short_name": "GHOTip",
+    "icons": [
+      {
+        "src": "/pwa_192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/pwa_512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "theme_color": "#FF9591",
+    "background_color": "#FFFFFF",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait"
+  }
+  
