@@ -13,7 +13,7 @@ template Withdraw() {
     signal input hashPairings[10];
     signal input hashDirections[10];
 
-    // check if the public variable (submitted) nullifierHash is equal to the output 
+    // check if the public variable nullifierHash is equal to the output 
     // from hashing secret and nullifier
     component cHasher = CommitmentHasher();
     cHasher.secret <== secret;
@@ -21,7 +21,7 @@ template Withdraw() {
     cHasher.nullifierHash === nullifierHash;
 
 
-    // checking merkle tree hash path
+    // check merkle tree hash path
     component leafHashers[10];
 
     signal currentHash[10 + 1];
@@ -48,7 +48,7 @@ template Withdraw() {
     root === currentHash[10];
 
 
-    // add recipient in the proof
+    // add recipient to proof
     signal recipientSquare;
     recipientSquare <== recipient * recipient;
 }
