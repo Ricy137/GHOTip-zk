@@ -25,7 +25,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="./favicon.ico" sizes="any" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#FF9591" />
+        <link rel="apple-touch-icon" href="/pwa_192.png" sizes="180x180" />
+        <link rel="mask-icon" href="/pwa_192.png" color="#FFFFFF" />
+        <link rel="shortcut icon" href="/pwa_192.png" sizes="any" />
+        <link rel="icon" href="/pwa_192.png" sizes="any" />
         <Script src="/js/snarkjs.min.js" />
       </head>
 
