@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Script from 'next/script';
 import { Inter } from 'next/font/google';
 import GHOIcon from '@/assets/icons/GHOTip.svg';
+import BG from '@/assets/bg.png';
 import { ToastRender } from '@/components/Toast';
 import ModalRender from '@/components/Modal';
 import Providers from '@/modules/Providers';
@@ -35,6 +37,14 @@ export default function RootLayout({
       </head>
 
       <body className={inter.className}>
+        <Image
+          src={BG}
+          alt=""
+          width={1920}
+          height={1357}
+          className="absolute w-full h-full z-[-1000] pointer-events-none select-none"
+          draggable={false}
+        />
         <Providers>
           <ToastRender />
           <ModalRender />
