@@ -3,8 +3,8 @@ import { decodeEventLog } from 'viem';
 import { useAccount } from 'wagmi';
 import { writeContract } from 'wagmi/actions';
 import $u from '@/utils/zkUtils';
-import GhoTipAbi from '@/utils/contracts/GhoTipAbi.json';
-import { GHOTIP_ADDR_1 } from '@/utils/constants';
+import GhoTipAbi5 from '@/utils/contracts/GhoTipAbi5.json';
+import { GHOTIP_ADDR_5 } from '@/utils/constants';
 import { publicClient } from '@/utils/viemClient';
 import { ProofElement } from '@/services/proof';
 
@@ -26,7 +26,7 @@ const generateProof = async (proofElementStr: string, addr: string) => {
     }
     const log = receipt.logs[1];
     const decodedResult = decodeEventLog({
-      abi: GhoTipAbi,
+      abi: GhoTipAbi5,
       data: log.data,
       topics: [...log.topics],
     }) as { args: DepositEvent; eventName: string };
@@ -69,12 +69,11 @@ export const useVerifyProof = () => {
       const callInputs = await generateProof(proofElementStr, account.address!);
       if (!callInputs) throw 'failed to generate proof';
       const tx = await writeContract({
-        abi: GhoTipAbi,
-        address: GHOTIP_ADDR_1,
+        abi: GhoTipAbi5,
+        address: GHOTIP_ADDR_5,
         functionName: 'getVerifyResult',
         args: [...callInputs],
       });
-      debugger;
     },
     [account]
   );
