@@ -4,7 +4,7 @@ import { useAccount } from 'wagmi';
 import { writeContract } from 'wagmi/actions';
 import $u from '@/utils/zkUtils';
 import GhoTipAbi from '@/utils/contracts/GhoTipAbi.json';
-import { GHOTIP_ADDR } from '@/utils/constants';
+import { GHOTIP_ADDR_1 } from '@/utils/constants';
 import { publicClient } from '@/utils/viemClient';
 import { ProofElement } from '@/services/proof';
 
@@ -70,7 +70,7 @@ export const useVerifyProof = () => {
       if (!callInputs) throw 'failed to generate proof';
       const tx = await writeContract({
         abi: GhoTipAbi,
-        address: GHOTIP_ADDR,
+        address: GHOTIP_ADDR_1,
         functionName: 'getVerifyResult',
         args: [...callInputs],
       });

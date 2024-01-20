@@ -22,11 +22,11 @@ async function main() {
   console.log('verifier:', verifier.address);
   const verifierAddress = verifier.address;
 
-  // deploy tornado
-  const Tornado = await hre.ethers.getContractFactory('Tornado');
-  const tornado = await Tornado.deploy(hasherAddress, verifierAddress, GHOAddr);
-  await tornado.deployed();
-  console.log('tornado:', tornado.address);
+  // deploy ghoTip
+  const GhoTip = await hre.ethers.getContractFactory('GhoTip');
+  const ghoTip = await GhoTip.deploy(hasherAddress, verifierAddress, GHOAddr);
+  await ghoTip.deployed();
+  console.log('ghoTip:', ghoTip.address);
 }
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.

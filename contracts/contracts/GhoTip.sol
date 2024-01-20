@@ -15,13 +15,15 @@ interface IVerifier {
     ) external;
 }
 
-contract Tornado is ReentrancyGuard, Ownable {
+contract GhoTip is ReentrancyGuard, Ownable {
     address verifier;
     Hasher hasher;
     IGhoToken ghoToken;
 
     uint8 public treeLevel = 10;
-    uint256 public denomination = 0.01 ether;
+    // uint256 public denomination = 0.1 ether;
+    uint256 public denomination = 0.5 ether;
+    // for different amount GhoTip contracts, the only difference is the number of demoniation. Currently, 0.1 ether and 0.5 ether are deployed
 
     uint256 public nextLeafIdx = 0;
     mapping(uint8 => uint256) lastLevelHash;

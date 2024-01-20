@@ -5,7 +5,7 @@ import GhoTokenAbi from '@/utils/contracts/GhoTokenAbi.json';
 import GhoTipAbi from '@/utils/contracts/GhoTipAbi.json';
 import $u from '@/utils/zkUtils';
 import wc from '@/utils/circuit/witness_calculator';
-import { GHOTOKEN_ADDR, GHOTIP_ADDR } from '@/utils/constants';
+import { GHOTOKEN_ADDR, GHOTIP_ADDR_1 } from '@/utils/constants';
 import { proofElementsAtom } from '../proof';
 
 const getApprove = async (amount: number) => {
@@ -13,7 +13,7 @@ const getApprove = async (amount: number) => {
     abi: GhoTokenAbi,
     address: GHOTOKEN_ADDR,
     functionName: 'approve',
-    args: [GHOTIP_ADDR, ethers.utils.parseUnits(amount.toString(), 18)],
+    args: [GHOTIP_ADDR_1, ethers.utils.parseUnits(amount.toString(), 18)],
   });
 
   return tx.hash;
@@ -22,7 +22,7 @@ const getApprove = async (amount: number) => {
 const deposit = async (_commitment: BigInt) => {
   const result = await writeContract({
     abi: GhoTipAbi,
-    address: GHOTIP_ADDR,
+    address: GHOTIP_ADDR_1,
     functionName: 'deposit',
     args: [_commitment],
   });
