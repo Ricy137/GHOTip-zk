@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Inter } from 'next/font/google';
 import { ToastRender } from '@/components/Toast';
 import ModalRender from '@/components/Modal';
@@ -20,6 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Script src="/js/snarkjs.min.js" />
       <body className={inter.className}>
         <Providers>
           <ToastRender />

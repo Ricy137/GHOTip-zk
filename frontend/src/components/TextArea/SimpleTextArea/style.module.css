@@ -1,0 +1,11 @@
+.balanceInput_wrapper {
+  @apply relative py-[25px] px-[32px] bg-[#BCB4C8] rounded-[15px] transition-colors;
+}
+
+.balanceInput_wrapper:focus-within {
+  @apply ring-[#303549];
+}
+
+.balanceInput {
+  @apply w-full text-[16px] overflow-ellipsis placeholder-[#D2D4DC] font-normal border-none outline-none text-[#fff] font-semibold bg-[#BCB4C8];
+}

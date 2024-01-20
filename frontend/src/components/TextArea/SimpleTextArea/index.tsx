@@ -15,7 +15,7 @@ export type Props = OverWrite<
   }
 >;
 
-const TextArea = forwardRef<HTMLTextAreaElement, Props>(
+const SimpleTextArea = forwardRef<HTMLTextAreaElement, Props>(
   (
     {
       className,
@@ -80,4 +80,4 @@ const TextArea = forwardRef<HTMLTextAreaElement, Props>(
   }
 );
 
-export default TextArea;
+export default SimpleTextArea;

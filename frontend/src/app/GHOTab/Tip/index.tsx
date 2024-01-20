@@ -66,7 +66,7 @@ const Tip: React.FC = () => {
       </WrapperCard>
       <div className="mt-[14px] w-full">
         <AuthConBtn color="purple">
-          <Button fullWidth color="purple" size="large">
+          <Button loading={loading} fullWidth color="purple" size="large">
             Tip
           </Button>
         </AuthConBtn>
