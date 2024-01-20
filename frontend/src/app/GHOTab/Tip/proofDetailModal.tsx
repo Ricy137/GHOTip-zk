@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import Button from '@/components/Button';
 import { useModal } from '@/components/Modal';
 import AuthConBtn from '@/modules/AuthConBtn';
+import { useClearProofElements } from '@/services/proof';
 import { useDepositTip } from '@/services/depositTip';
 import { calcTipDetail } from '@/utils/tipUtil';
 import useInTransaction from '@/hooks/useIntransaction';
@@ -10,14 +11,17 @@ import ProofModal from './proofModal';
 import { TipForm } from '.';
 
 const ProofDetailModal: React.FC<TipForm> = (props) => {
+  const clearProofElements = useClearProofElements();
   const { showModal } = useModal({
     title: 'Tip Proof List',
     content: <ProofModal />,
+    onClose: clearProofElements,
   });
   const { totalTip, tip1, tip5 } = calcTipDetail(props);
   const depositTip = useDepositTip();
 
-  const onDeposit = useCallback(async () => {
+  //
+  const onDeposit = async () => {
     try {
       let tip1Number = tip1;
       let tip5Number = tip5;
@@ -33,7 +37,7 @@ const ProofDetailModal: React.FC<TipForm> = (props) => {
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  };
 
   const { loading, handleExecAction } = useInTransaction(onDeposit);
 
@@ -54,16 +58,18 @@ const ProofDetailModal: React.FC<TipForm> = (props) => {
           <span>0.1GHO x {tip1}</span>
         </div>
       </div>
-      <Button
-        loading={loading}
-        onClick={handleExecAction}
-        className="mt-[14px]"
-        size="large"
-        fullWidth
-        color="purple"
-      >
-        Deposit & Generate Tip
-      </Button>
+      <AuthConBtn color="purple">
+        <Button
+          loading={loading}
+          onClick={handleExecAction}
+          className="mt-[14px]"
+          size="large"
+          fullWidth
+          color="purple"
+        >
+          Deposit & Generate Tip
+        </Button>
+      </AuthConBtn>
     </div>
   );
 };

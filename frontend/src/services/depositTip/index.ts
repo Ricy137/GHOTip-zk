@@ -14,12 +14,15 @@ export interface TipDetails {
   tip1: number;
   tip5: number;
 }
-const getApprove = async (amount: number) => {
+const getApprove = async (amount: 0.1 | 0.5) => {
   const tx = await writeContract({
     abi: GhoTokenAbi,
     address: GHOTOKEN_ADDR,
     functionName: 'approve',
-    args: [GHOTIP_ADDR_1, ethers.utils.parseUnits(amount.toString(), 18)],
+    args: [
+      amount === 0.1 ? GHOTIP_ADDR_1 : GHOTIP_ADDR_5,
+      ethers.utils.parseUnits(amount.toString(), 18),
+    ],
   });
   let transactionReceipt = await waitForTransaction({ hash: tx.hash });
 
@@ -27,20 +30,10 @@ const getApprove = async (amount: number) => {
 };
 
 //TODO:Abstract them into one function
-const deposit1 = async (_commitment: string) => {
+const deposit = async (_commitment: string, amount: 0.1 | 0.5) => {
   const result = await writeContract({
-    abi: GhoTipAbi1,
-    address: GHOTIP_ADDR_1,
-    functionName: 'deposit',
-    args: [_commitment],
-  });
-  return result.hash;
-};
-
-const deposit5 = async (_commitment: string) => {
-  const result = await writeContract({
-    abi: GhoTipAbi5,
-    address: GHOTIP_ADDR_1,
+    abi: amount === 0.1 ? GhoTipAbi1 : GhoTipAbi5,
+    address: amount === 0.1 ? GHOTIP_ADDR_1 : GHOTIP_ADDR_5,
     functionName: 'deposit',
     args: [_commitment],
   });
@@ -85,19 +78,16 @@ export const useDepositTip = () => {
     try {
       const newProofElements = await generateProofElements();
 
+      //TODO:Test
       const approveReceipt = await getApprove(amount);
       let txHash = '';
-      if (amount === 0.1) {
-        txHash = await deposit1(newProofElements.commitment);
-      } else {
-        txHash = await deposit5(newProofElements.commitment);
-      }
+      txHash = await deposit(newProofElements.commitment, amount);
 
       setProofElements((pre) => {
         if (!pre) {
-          return [{ ...newProofElements, txHash }];
+          return [{ ...newProofElements, txHash, amount }];
         }
-        return [{ ...newProofElements, txHash }, ...pre];
+        return [{ ...newProofElements, txHash, amount }, ...pre];
       });
       return txHash;
     } catch (err) {

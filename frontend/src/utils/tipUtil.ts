@@ -5,7 +5,7 @@ export const calcTipAmount = (amount: number) => {
   let amountHelper = amount * 10;
   let tip5 = Math.floor(amountHelper / 5);
   let remainder = amountHelper % 5;
-  let tip1 = Math.floor(remainder / 5);
+  let tip1 = Math.trunc(remainder);
   return { tip1, tip5 };
 };
 

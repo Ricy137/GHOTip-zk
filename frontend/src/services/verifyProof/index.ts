@@ -1,10 +1,11 @@
 import { useCallback } from 'react';
 import { decodeEventLog } from 'viem';
 import { useAccount } from 'wagmi';
-import { writeContract } from 'wagmi/actions';
+import { writeContract, waitForTransaction } from 'wagmi/actions';
 import $u from '@/utils/zkUtils';
 import GhoTipAbi5 from '@/utils/contracts/GhoTipAbi5.json';
-import { GHOTIP_ADDR_5 } from '@/utils/constants';
+import GhoTipAbi1 from '@/utils/contracts/GhoTipAbi1.json';
+import { GHOTIP_ADDR_5, GHOTIP_ADDR_1 } from '@/utils/constants';
 import { publicClient } from '@/utils/viemClient';
 import { ProofElement } from '@/services/proof';
 
@@ -55,7 +56,7 @@ const generateProof = async (proofElementStr: string, addr: string) => {
       proof.pi_c.slice(0, 2).map($u.BNToDecimal),
       publicSignals.slice(0, 2).map($u.BNToDecimal),
     ];
-    return callInputs;
+    return { callInputs, amount: proofElement.amount };
   } catch (err) {
     throw err;
   }
@@ -66,14 +67,19 @@ export const useVerifyProof = () => {
 
   const verifyProof = useCallback(
     async (proofElementStr: string) => {
-      const callInputs = await generateProof(proofElementStr, account.address!);
-      if (!callInputs) throw 'failed to generate proof';
+      const proofResult = await generateProof(
+        proofElementStr,
+        account.address!
+      );
+      if (!proofResult) throw 'failed to generate proof';
+      const { callInputs, amount } = proofResult;
       const tx = await writeContract({
-        abi: GhoTipAbi5,
-        address: GHOTIP_ADDR_5,
+        abi: amount === 0.1 ? GhoTipAbi1 : GhoTipAbi5,
+        address: amount === 0.1 ? GHOTIP_ADDR_1 : GHOTIP_ADDR_5,
         functionName: 'getVerifyResult',
         args: [...callInputs],
       });
+      let transactionReceipt = await waitForTransaction({ hash: tx.hash });
     },
     [account]
   );

@@ -25,6 +25,7 @@ export interface Modal {
   containerClass?: string;
   wrapperClass?: string;
   contentWrapperClass?: string;
+  onClose?: () => void | Promise<void>;
 }
 
 const isOpenAtom = atom(false);
@@ -53,10 +54,21 @@ export const useModal = (param?: Omit<Modal, 'id'>) => {
 const ModalRender: React.FC = () => {
   const [isOpen, setIsOpen] = useAtom(isOpenAtom);
   const [modal, setModal] = useAtom(modalAtom);
-  const handleOpen = useCallback((open: boolean, event?: Event) => {
-    setIsOpen(open);
-    if (!open) setModal(null);
-  }, []);
+  const handleOpen = useCallback(
+    (open: boolean, event?: Event) => {
+      setIsOpen(open);
+      if (!open) {
+        modal?.onClose?.();
+        setModal(null);
+      }
+    },
+    [modal]
+  );
+
+  const handleClose = useCallback(() => {
+    modal?.onClose?.();
+    setIsOpen(false);
+  }, [modal]);
 
   const { refs, context } = useFloating({
     open: isOpen,
@@ -114,7 +126,7 @@ const ModalRender: React.FC = () => {
                 >
                   <div
                     className="w-[12px] h-[12px] cursor-pointer"
-                    onClick={() => setIsOpen(false)}
+                    onClick={handleClose}
                   >
                     <CloseIcon />
                   </div>
