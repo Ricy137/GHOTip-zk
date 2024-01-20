@@ -26,19 +26,20 @@ const getApprove = async (amount: 0.1 | 0.5) => {
   });
   let transactionReceipt = await waitForTransaction({
     hash: tx.hash,
-    confirmations: 2,
   });
 
   return transactionReceipt;
 };
 
-//TODO:Abstract them into one function
 const deposit = async (_commitment: string, amount: 0.1 | 0.5) => {
   const result = await writeContract({
     abi: amount === 0.1 ? GhoTipAbi1 : GhoTipAbi5,
     address: amount === 0.1 ? GHOTIP_ADDR_1 : GHOTIP_ADDR_5,
     functionName: 'deposit',
     args: [_commitment],
+  });
+  let transactionReceipt = await waitForTransaction({
+    hash: result.hash,
   });
   return result.hash;
 };
