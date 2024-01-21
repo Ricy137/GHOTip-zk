@@ -1,13 +1,21 @@
-# Sample Hardhat Project
+# get started
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+## install
+```bash
+npm/yarn/pnpm install
+```
 
-Try running some of the following tasks:
+## setup environment variables
+create a `.env` file according to `.env.example`
+
+## common commands
 
 ```shell
 npx hardhat help
-npx hardhat test
 REPORT_GAS=true npx hardhat test
 npx hardhat node
+npx hardhat clean
+npx hardhat compile
 npx hardhat run scripts/deploy.js
+npx hardhat verify
 ```
