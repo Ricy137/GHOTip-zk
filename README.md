@@ -12,7 +12,7 @@ GHOTip leverages Zero-Knowledge Proofs (ZKP) for secure and anonymous transactio
 ### Techs used and where they're located
 *Detailed explaining files for local setup is in README.md under each folders*
 
-### zk (under circuit folder, circom, snarkjs)
+### zk (under circuit folder; circom, snarkjs)
 They're originally written in **circom** and using **snarkjs** for G16 setup.
 The main circom files are deposit.circom and withdraw.circom 
 deposit_js and withdraw_js folders are automatically generated during the compiling of circom files (deposit.circom and withdraw.circom ). And files under the two folders are used in frontend for proof generation.
