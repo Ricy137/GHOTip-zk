@@ -1,4 +1,4 @@
-# LFGHOTip
+# GHOTip
 
 |Links||
 |--|--|
