@@ -1,5 +1,7 @@
 # GHOTip
 
+**For quick and comprehensive understanding** : please review our project page in [ETHGlobal](https://ethglobal.com/showcase/ghotip-5vix5)
+
 |Links||
 |--|--|
 |live website link|https://reliable-figolla-c2b336.netlify.app/|
